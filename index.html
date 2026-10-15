@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ontwerp je stalen deur — AG Style Design</title>
+<meta name="description" content="Ontwerp je stalen deur op maat in 3D: taats-, scharnier- of schuifdeur, ook schuin, met een schuine hoek of met bogen in het glas. Inclusief inmeten en montage door AG Style Design.">
+<link rel="icon" href="logo/png/ico32.png" type="image/png">
+<link rel="apple-touch-icon" href="logo/png/ico180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="huisstijl.css">
+<link rel="stylesheet" href="configurator.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body class="pagina-configurator">
+<!--menu-->
+<header class="kop"><div class="wrap">
+  <a href="index.html" class="merk" aria-label="AG Style Design — naar de homepage"><img src="logo/png/merk.png" alt="" width="400" height="285"><img class="merk-woord" src="logo/png/woordmerk-donker.png" alt="" width="169" height="96"></a>
+  
+  <div class="kop-rechts"><a class="knop knop-rand alleen-breed" href="https://wa.me/31612717417" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-whatsapp"/></svg>WhatsApp</a><button class="menu-knop" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="lade"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-menu"/></svg></button></div>
+</div></header>
+<div class="lade" id="lade"><nav aria-label="Menu"><div class="lade-knoppen"><a class="knop knop-rand" href="tel:+31612717417"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-telefoon"/></svg>Bellen</a><a class="knop knop-rand" href="https://wa.me/31612717417" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-whatsapp"/></svg>WhatsApp</a></div></nav></div>
+<!--/menu-->
+
+<main class="cfg">
+  <div class="cfg-beeld">
+    <div class="cfg-3d" id="cfg3d" aria-label="3D-weergave van je ontwerp. Sleep om te draaien."></div>
+    <div class="cfg-2d" id="cfg2d" hidden></div>
+    <div class="cfg-laden" id="cfgLaden"><div class="laden-merk"><img src="logo/png/merk.png" alt="" width="400" height="285"><img class="laden-woord" src="logo/png/woordmerk-donker.png" alt="" width="169" height="96"></div><span class="laden-balk" aria-hidden="true"></span><span>3D laden…</span></div>
+    <div class="cfg-tools" role="toolbar" aria-label="Weergave">
+      <div class="cfg-wissel" role="group" aria-label="Weergave kiezen">
+        <button type="button" data-weergave="3d" aria-pressed="true"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-kubus"/></svg>3D</button>
+        <button type="button" data-weergave="2d" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-vooraanzicht"/></svg>Maten</button>
+      </div>
+      <button type="button" class="cfg-tool" id="knopOpen" data-als="type!=vast&type!=doorgang" aria-pressed="false" title="Deur openen"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-deur-open"/></svg><span>Open</span></button>
+      <div class="cfg-vloer"><button type="button" class="cfg-tool" id="knopVloer" aria-expanded="false" aria-controls="vloerKeuze" title="Vloer kiezen"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-vloer"/></svg><span>Vloer</span></button><div class="vloer-keuze" id="vloerKeuze" role="group" aria-label="Vloer kiezen" hidden></div></div>
+    </div>
+    <div class="cfg-zoom" id="cfgZoom" role="group" aria-label="Zoomen"><button type="button" data-zoom="0.8" aria-label="Inzoomen" title="Inzoomen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" data-zoom="1.25" aria-label="Uitzoomen" title="Uitzoomen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button></div>
+    <p class="cfg-hint" id="cfgHint"><span class="hint-muis">Sleep om te draaien</span><span class="hint-touch">Draai met 1 vinger · zoom met 2</span></p>
+    <div class="cfg-merk" aria-hidden="true"><img src="logo/png/merk.png" alt="" width="400" height="285"><img class="cfg-woord" src="logo/png/woordmerk-licht.png" alt="" width="282" height="160"></div>
+  </div>
+
+  <div class="cfg-paneel" id="cfgPaneel">
+    <div class="cfg-intro">
+      <div class="cfg-intro-kop"><p class="label">Configurator</p><button type="button" class="cfg-reset" id="knopReset"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-opnieuw"/></svg><span>Opnieuw beginnen</span></button></div>
+      <h1>Ontwerp je <span class="goud">stalen deur</span></h1>
+      <p>Recht of schuin, strak of met bogen: kies wat bij jouw ruimte past. De maten zijn een indicatie: Ahmet meet alles exact in, en plaatst de deur ook zelf.</p>
+    </div>
+    <!-- de stappen bouwt configurator.js uit DEUR.KEUZES -->
+    <div id="cfgStappen"></div>
+  </div>
+
+  <div class="cfg-balk">
+    <p id="cfgSamenvatting">Taatsdeur · 90 × 240 cm</p>
+    <button type="button" class="knop knop-goud" id="knopNaarAanvraag">Aanvraag<svg class="ico" aria-hidden="true"><use href="iconen.svg#i-pijl"/></svg></button>
+  </div>
+</main>
+
+<!--voet-->
+<footer class="voet"><div class="wrap">
+  <div class="voet-raster">
+    <div><img class="logo-vol" src="logo/png/vol.png" alt="AG Style Design" width="800" height="894" loading="lazy"><p style="margin-top:16px">Sterk in staal, strak in design.</p></div>
+    <div><h4>Contact</h4><ul><li><a href="tel:+31612717417" data-cms="telefoon">06 12 71 74 17</a></li><li><a href="https://wa.me/31612717417" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:info@agstyledesign.nl" data-cms="email">info@agstyledesign.nl</a></li><li data-cms="werkgebied">Vanuit Spijkenisse</li></ul></div>
+    
+    
+    <div><h4>Volg ons</h4><div class="socials"><a href="https://www.instagram.com/agstyledesign/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-instagram"/></svg></a><a href="https://www.tiktok.com/@agstyledesign" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ico" aria-hidden="true"><use href="iconen.svg#i-tiktok"/></svg></a></div><p class="socials-tekst">Bekijk het werk van Ahmet in video</p></div>
+  </div>
+  <div class="onder"><span>© 2026 AG Style Design</span><span>KvK <span data-cms="kvk">98310879</span></span><a class="gemaakt-door" href="https://vivoproducts.nl" target="_blank" rel="noopener">Website door Vivo</a></div>
+</div></footer>
+<!--/voet-->
+<script src="site.js" defer></script>
+<script src="deur-vorm.js"></script>
+<script src="configurator.js" type="module"></script>
+</body>
+</html>
