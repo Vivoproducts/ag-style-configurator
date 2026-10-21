@@ -1,0 +1,190 @@
+/* Configurator — mobiel: beeld boven (vast), keuzes eronder; desktop: beeld links (vast), keuzes rechts. */
+.pagina-configurator .whatsapp-zwevend{display:none}
+.alleen-breed{display:none!important}
+@media (min-width:768px){.alleen-breed{display:inline-flex!important}}
+.cfg{display:grid;grid-template-columns:minmax(0,1fr);background:var(--licht)}
+.cfg-beeld{position:sticky;top:72px;z-index:5;height:46vh;height:46svh;min-height:280px;background:#d8d0c4;overflow:hidden}
+.cfg-3d,.cfg-2d{position:absolute;inset:0}
+.cfg-3d canvas{display:block;width:100%!important;height:100%!important;touch-action:none;cursor:grab}
+.cfg-3d canvas:active{cursor:grabbing}
+.cfg-2d{background:#e9e3d9;padding:12px 12px 64px}   /* onderaan ruimte voor de knoppen, zodat de breedtemaat vrij blijft */
+.cfg-2d svg{width:100%;height:100%}
+.cfg-laden{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;background:var(--donker);color:var(--op-donker-zacht);font-size:13px;letter-spacing:.1em;z-index:3}
+/* laadscherm: beeldmerk + "STYLE Design" uit het logo, licht rustig op; een bronzen lijntje loopt eronder heen en weer */
+.cfg-laden{gap:18px}
+.laden-merk{display:flex;align-items:center;gap:14px;animation:oplichten 1.8s ease-in-out infinite}
+.laden-merk img{width:92px;height:auto}
+.laden-merk img.laden-woord{width:auto;height:64px}
+.laden-balk{position:relative;width:180px;height:2px;background:rgba(195,183,172,.18);overflow:hidden;border-radius:2px}
+.laden-balk::after{content:"";position:absolute;inset:0;width:40%;background:var(--verloop);animation:laden-loop 1.4s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes oplichten{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes laden-loop{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+@media (prefers-reduced-motion:reduce){.laden-merk,.laden-balk::after{animation:none}}
+.cfg-laden[hidden]{display:none}
+.cfg-tools{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;z-index:2}
+.cfg-wissel{display:flex;background:rgba(29,29,27,.82);border-radius:var(--r-pil);padding:3px}
+.cfg-wissel button,.cfg-tool{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:var(--r-pil);font:700 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--op-donker)}
+.cfg-wissel button[aria-pressed="true"]{background:var(--op-donker);color:var(--donker)}
+.cfg-wissel button:disabled{opacity:.4;cursor:not-allowed}
+.cfg-tool{background:rgba(29,29,27,.82)}
+.cfg-tool[aria-pressed="true"]{background:var(--verloop);color:var(--donker)}
+.cfg-tools .ico{width:16px;height:16px}
+/* zoomknoppen (alleen in 3D): rechts in het midden, zoals bij een kaart */
+.cfg-zoom{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:grid;background:rgba(29,29,27,.82);border-radius:var(--r-pil);padding:3px;z-index:2}
+.cfg-zoom[hidden]{display:none}
+.cfg-zoom button{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;color:var(--op-donker);transition:background .2s,color .2s}
+.cfg-zoom button+button{margin-top:2px}
+.cfg-zoom button:hover{background:var(--op-donker);color:var(--donker)}
+.cfg-zoom button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cfg-zoom svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (min-width:1024px){.cfg-zoom{right:24px}}
+/* aanraakscherm (telefoon, tablet): zoomen met twee vingers, dus geen knoppen op het toch al kleine scherm */
+.hint-touch{display:none}
+@media (hover:none) and (pointer:coarse){
+  .cfg-zoom{display:none!important}
+  .hint-muis{display:none}.hint-touch{display:inline}
+  p.cfg-hint{left:12px;transform:none;font-size:11px;letter-spacing:.06em;white-space:nowrap}   /* links, vrij van het logo rechtsboven */
+}
+.cfg-hint{position:absolute;top:12px;left:50%;transform:translateX(-50%);font:600 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:rgba(29,29,27,.82);pointer-events:none;background:rgba(244,241,236,.72);padding:5px 9px;border-radius:2px}   /* leesbaar op wand en trap */
+.cfg-hint[hidden]{display:none}
+/* watermerk: klein en stil, zodat het ook op een schermafbeelding staat */
+.cfg-merk{position:absolute;top:10px;right:12px;display:flex;align-items:center;gap:8px;opacity:.8;pointer-events:none}
+.cfg-merk img{width:30px;height:auto}
+.cfg-merk img.cfg-woord{width:auto;height:24px}
+
+.cfg-paneel{padding:24px var(--gutter) 120px;min-width:0}
+.cfg-intro h1{font-size:clamp(30px,4vw,42px);margin:14px 0 10px}
+.cfg-intro p:last-child{color:var(--tekst-zacht);font-size:15px;margin-bottom:24px}
+
+/* stappen (accordeon) */
+.stap{border-top:1px solid var(--lijn)}
+.stap:last-child{border-bottom:1px solid var(--lijn)}
+.stap h2{font:inherit}
+.stap-kop{width:100%;display:flex;align-items:center;gap:14px;padding:18px 0;text-align:left;min-height:64px}
+.stap-nr{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--lijn);display:grid;place-items:center;font:600 14px/1 var(--f-display)}
+.stap-kop[aria-expanded="true"] .stap-nr{background:var(--donker);color:var(--op-donker);border-color:var(--donker)}
+.stap-titel{flex:1;min-width:0;font:600 18px/1.2 var(--f-display)}
+.stap-titel small{display:block;font:500 13px/1.4 var(--f-ui);color:var(--tekst-zacht);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stap-tag{font:700 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;font-style:normal;background:var(--verloop-knop);color:var(--donker);padding:4px 7px;border-radius:var(--r-pil);margin-left:10px;vertical-align:3px}
+.stap-kop>.ico{transform:rotate(90deg);transition:transform .2s;color:var(--tekst-zacht)}
+.stap-kop[aria-expanded="true"]>.ico{transform:rotate(-90deg)}
+.stap-inhoud{padding:4px 0 28px;display:grid;gap:22px}
+.stap-inhoud[hidden]{display:none}
+.stap-verder{justify-self:start}
+.cfg-groep{display:grid;gap:10px}
+.cfg-groep[hidden],[data-als][hidden]{display:none!important}
+.cfg-groep-titel{font:700 11px/1.3 var(--f-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--tekst-zacht)}
+.cfg-uitleg{font-size:13px;color:var(--tekst-zacht)}
+.cfg-lead{font-size:15px}
+
+/* keuzeknoppen */
+.kz-raster{display:grid;gap:8px}
+.kz-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kz-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.kz-4 .kz,.kz-5 .kz{padding:10px 4px;font-size:11.5px}
+.kz-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:520px){.kz-5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.kz span{max-width:100%;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}   /* "Scharnierdeur" past in een smalle tegel */
+@media (max-width:380px){.kz-4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.kz-rij{display:flex;gap:6px;flex-wrap:wrap}
+.kz{position:relative;display:grid;justify-items:center;align-content:start;gap:6px;min-height:44px;padding:10px 8px;background:var(--wit);border:1px solid var(--lijn);border-radius:var(--r-kaart);font:600 12px/1.25 var(--f-ui);text-align:center;transition:border-color .15s,box-shadow .15s}
+.kz-rij .kz{display:inline-flex;align-items:center;padding:0 16px;flex:1 1 auto}
+.kz:hover{border-color:var(--grijs)}
+.kz[aria-pressed="true"]{border-color:var(--donker);box-shadow:inset 0 0 0 1px var(--donker)}
+.kz[aria-pressed="true"]::after{content:"";position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--verloop)}
+.kz svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:1.6}
+.kz svg .dun{stroke-width:1.1;stroke-dasharray:2 2}
+.kz svg .dik{stroke-width:3}
+.kz svg .vol{fill:currentColor}
+.kz-ico{display:block;width:100%;height:72px;color:var(--tekst)}
+.kz-ico svg{width:100%;height:100%;stroke:none}
+.kz small{display:block;font-weight:500;color:var(--tekst-zacht);font-size:11px;margin-top:2px}
+.kz-staal,.kz-glas{grid-template-columns:repeat(4,minmax(0,1fr))}
+.staal-staal{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.35),transparent 55%),var(--c);border:1px solid rgba(0,0,0,.15)}
+.glas-staal{width:46px;height:40px;border-radius:2px;background:linear-gradient(135deg,rgba(255,255,255,.5),transparent 45%),var(--c);border:3px solid var(--donker)}
+.glas-helder{background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(205,222,218,.5))}
+.glas-mat{background:#f2f2ee}
+.glas-ribbel{background:repeating-linear-gradient(90deg,#dfe7e3 0 3px,#f7faf8 3px 6px)}
+.glas-spiegel{background:linear-gradient(135deg,#f3f4f4,#a9adac 60%,#e6e8e7)}
+
+/* maten */
+.getallen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.getallen>span{display:contents}
+.getal{display:grid;gap:6px;font-size:12px;font-weight:600;color:var(--tekst-zacht)}
+.getal-bereik{font-size:11px;font-weight:500;color:var(--tekst-zacht)}
+.getal-melding{font-size:12px;font-weight:600;color:var(--accent-t)}
+.getal-melding:empty{display:none}
+.getal-veld{display:flex;align-items:center;background:var(--wit);border:1px solid var(--lijn);border-radius:var(--r-kaart);min-width:0}
+.getal-veld button{width:40px;height:46px;flex:none;font-size:18px;color:var(--tekst)}
+.getal-veld input{width:100%;min-width:0;border:0;background:none;text-align:center;font:600 16px/1 var(--f-ui);color:var(--tekst);-moz-appearance:textfield}
+.getal-veld input::-webkit-inner-spin-button{-webkit-appearance:none}
+.getal-veld em{font-style:normal;font-size:12px;color:var(--tekst-zacht);padding-right:10px}
+.schuif{display:grid;gap:8px;font-size:13px;font-weight:600}
+.schuif label{display:block}
+.schuif-waarde{float:right;color:var(--accent-t)}
+.schuif input{width:100%;accent-color:var(--brons-2);height:28px}
+.schakel{display:flex;align-items:center;gap:12px;min-height:44px;font-size:14px;cursor:pointer}
+.schakel input{width:22px;height:22px;accent-color:var(--donker)}
+.cfg-eigen{display:flex;gap:14px;padding:16px;background:var(--donker);color:var(--op-donker-zacht);border-radius:var(--r-kaart);font-size:14px}
+.cfg-eigen strong{color:var(--op-donker)}
+.cfg-eigen .ico{color:var(--accent);margin-top:2px}
+
+/* aanvraag */
+.overzicht{display:grid;background:var(--wit);border:1px solid var(--lijn);border-radius:var(--r-kaart);padding:6px 16px}
+.overzicht div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--lijn);font-size:14px}
+.overzicht div:last-child{border-bottom:0}
+.overzicht dt{color:var(--tekst-zacht);font-size:12px;font-weight:600;padding-top:2px}
+.velden{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.velden label{display:grid;gap:6px;font-size:12px;font-weight:600;color:var(--tekst-zacht)}
+.velden .breed{grid-column:1/-1}
+.velden input,.velden textarea{width:100%;border:1px solid var(--lijn);background:var(--wit);border-radius:var(--r-kaart);padding:12px;font:500 16px/1.4 var(--f-ui);color:var(--tekst)}
+.knoppen-kolom{display:grid;gap:8px}
+.knoppen-twee{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.knoppen-twee .knop{color:var(--tekst);padding:0 10px}
+
+/* balk onderin (mobiel) */
+.cfg-balk{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:var(--donker);color:var(--op-donker)}
+.cfg-balk p{font-size:13px;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cfg-balk .knop{min-height:44px;padding:0 18px;flex:none}
+
+@media (min-width:1024px){
+  .cfg{grid-template-columns:minmax(0,1fr) 460px;align-items:start}
+  .cfg-beeld{height:calc(100vh - 72px);height:calc(100dvh - 72px)}
+  .cfg-paneel{padding:36px 36px 140px;min-height:calc(100vh - 72px)}
+  .cfg-tools{left:24px;bottom:24px;right:auto}
+  .cfg-balk{left:auto;width:460px}
+}
+
+/* vloerkeuze (alleen sfeer in 3D) */
+.cfg-vloer{position:relative}
+.vloer-keuze{position:absolute;left:0;bottom:calc(100% + 8px);width:230px;display:grid;gap:2px;padding:6px;background:rgba(29,29,27,.94);border-radius:var(--r-kaart)}
+.vloer-keuze[hidden]{display:none}
+.vloer-keuze button{display:flex;align-items:center;gap:10px;min-height:42px;padding:0 10px;border-radius:2px;color:var(--op-donker);font:600 13px/1.2 var(--f-ui);text-align:left}
+.vloer-keuze button:hover{background:rgba(255,255,255,.08)}
+.vloer-keuze button[aria-pressed="true"]{background:rgba(255,255,255,.14)}
+.vloer-staal{width:28px;height:28px;flex:none;border-radius:2px;background:var(--c);border:1px solid rgba(255,255,255,.2)}
+.vloer-visgraat{background:repeating-linear-gradient(45deg,var(--c) 0 5px,color-mix(in srgb,var(--c) 82%,#000) 5px 6px),var(--c);background-size:100% 100%}
+.vloer-planken{background:repeating-linear-gradient(0deg,var(--c) 0 6px,color-mix(in srgb,var(--c) 80%,#000) 6px 7px)}
+.vloer-beton,.vloer-marmer{background:linear-gradient(90deg,transparent 48%,rgba(0,0,0,.25) 48% 52%,transparent 52%),linear-gradient(0deg,transparent 48%,rgba(0,0,0,.25) 48% 52%,transparent 52%),var(--c)}
+.getal-totaal{grid-column:1/-1;display:block!important}
+.getal-totaal .getal-veld{border-color:var(--donker)}
+.getal-totaal .getal>label{color:var(--tekst)}
+.cfg-sub{font-size:12px;font-weight:600;color:var(--tekst-zacht);margin-top:2px}
+.kz-rij .kz{min-width:44px}
+
+/* opnieuw beginnen */
+.cfg-intro-kop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cfg-reset{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:0 12px;border:1px solid var(--lijn);border-radius:var(--r-pil);font:700 11px/1 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--tekst-zacht);background:var(--wit);transition:color .2s,background .2s,border-color .2s}
+.cfg-reset .ico{width:15px;height:15px;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.cfg-reset:hover{color:var(--tekst);border-color:var(--tekst)}.cfg-reset:hover .ico{transform:rotate(-120deg)}}
+.cfg-reset:active{transform:scale(.97)}
+.cfg-reset.zeker{background:var(--donker);border-color:var(--donker);color:var(--op-donker)}
+
+/* focusring op de donkere balk en het vloermenu: het lichte accent (8,0 : 1) in plaats van donkerbrons */
+.cfg-balk :focus-visible,.vloer-keuze :focus-visible,.cfg-tools :focus-visible,.cfg-zoom :focus-visible{outline-color:var(--accent)}
+.stap-kop:focus{outline:none}.stap-kop:focus-visible{outline:2px solid var(--accent-t);outline-offset:2px}
+/* smal scherm: vloermenu rechts uitlijnen, zodat het binnen beeld blijft */
+@media (max-width:699px){.vloer-keuze{left:auto;right:0;width:min(230px,calc(100vw - 32px))}}
+/* melding als je uit de studio komt (stalen-deuren.html): je keuzes staan klaar */
+.cfg-melding{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:12px 14px;border:1px solid var(--lijn);border-radius:var(--r-kaart);font-size:14px;line-height:1.5;color:var(--tekst)}
+.cfg-melding .ico{flex:none;width:18px;height:18px;margin-top:2px;color:var(--accent-t)}
